@@ -1,3 +1,4 @@
+
 import tensorflow as tf
 from tensorflow.examples.tutorials.mnist import input_data
 
@@ -28,7 +29,7 @@ def conv2d(x,W):
     tf.nn.conv2d (input, filter, strides, padding, use_ cudnn on_ gpu=None,name=None)
     input:输入图像X,它的形状是4维张量[batch,height,width,channel]
     file:过滤器W，形状【长，宽，通道数，过滤器个数】
-    过滤器W在图像X上做[batch,height,width,channel]步长都为1的卷积操作，same填充:卷积操作后输出大小不变。
+    过滤器W在图像X上做[batch,height,width,channel]步长都为1的卷积操作。
     same:p为每个边缘填充层数，f为过滤器大小。p=（f-1)/2.当same卷积时，只有在步长为1的情况下，输出和输入大小相等
     输出大小（n+2p-f+1)
     '''
@@ -36,7 +37,8 @@ def conv2d(x,W):
 
 #池化
 def max_pool_2x2(x):
-  # tf.nn.max_pool(value, ksize, strides, padding, name=None)
+  # tf.nn.max_pool(value, ksize, strid
+  # es, padding, name=None)
    #ksize：池化窗口的大小，参数为四维向量，通常取[1, height, width, 1],
   return tf.nn.max_pool(x, ksize=[1, 2, 2, 1],#池化模板大小为2x2
                         strides=[1, 2, 2, 1], padding='SAME')#步长为2,输出大小【（n+2p-f)/s】+1
@@ -51,7 +53,7 @@ W_conv1=weight_variable([5,5,1,32]) #第一层卷积设置32个5x5x1的过滤器
 b_conv1=bias_variable([32])
 
 h_conv1=tf.nn.relu(conv2d(x_image,W_conv1)+b_conv1)#28x28x32，输出=n+2p-f+1
-h_pool1=max_pool_2x2(h_conv1)#14x14x32  疑问: 定义池化函数时，pading=same，为什么图像会缩小？？？
+h_pool1=max_pool_2x2(h_conv1)#14x14x32
 
 #第二层卷积
 W_conv2=weight_variable([5,5,32,64])
